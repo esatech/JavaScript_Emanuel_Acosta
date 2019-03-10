@@ -23,84 +23,128 @@ function calculadora() {
   var operando2;
   var operacion;
   var resultado = "";
+  var maxDigitos= "";
 
   //Eventos
   num0.onclick= function (e) {
-    resultado.textContent = resultado.textContent + "0"
+    if (resultado=="0") {
+      display.textContent = "0"
+      resultado= ""
+    } else {
+      comprobarDigitos()
+      if (maxDigitos==false) {
+        display.textContent = resultado + "0"
+        resultado= display.textContent
+      }
+    }
     num0.style="padding:1%"
     setInterval(resetNum, 400)
   }
   num1.onclick= function (e) {
-    display.textContent = resultado + "1"
-    resultado= display.textContent
+    comprobarDigitos()
+    if (maxDigitos==false) {
+      display.textContent = resultado + "1"
+      resultado= display.textContent
+    }
     num1.style="padding:1%"
     setInterval(resetNum, 400)
   }
   num2.onclick= function (e) {
-    display.textContent = resultado + "2"
-    resultado= display.textContent
+    comprobarDigitos()
+    if (maxDigitos==false) {
+      display.textContent = resultado + "2"
+      resultado= display.textContent
+    }
     num2.style="padding:1%"
     setInterval(resetNum, 400)
   }
   num3.onclick= function (e) {
-    resultado.textContent = resultado.textContent + "3"
+    comprobarDigitos()
+    if (maxDigitos==false) {
+      display.textContent = resultado + "3"
+      resultado= display.textContent
+    }
     num3.style="padding:1%"
     setInterval(resetNum, 400)
   }
   num4.onclick= function (e) {
-    resultado.textContent = resultado.textContent + "4"
+    comprobarDigitos()
+    if (maxDigitos==false) {
+      display.textContent = resultado + "4"
+      resultado= display.textContent
+    }
     num4.style="padding:1%"
     setInterval(resetNum, 400)
   }
   num5.onclick= function (e) {
-    resultado.textContent = resultado.textContent + "5"
+    comprobarDigitos()
+    if (maxDigitos==false) {
+      display.textContent = resultado + "5"
+      resultado= display.textContent
+    }
     num5.style="padding:1%"
     setInterval(resetNum, 400)
   }
   num6.onclick= function (e) {
-    resultado.textContent = resultado.textContent + "6"
+    comprobarDigitos()
+    if (maxDigitos==false) {
+      display.textContent = resultado + "6"
+      resultado= display.textContent
+    }
     num6.style="padding:1%"
     setInterval(resetNum, 400)
   }
   num7.onclick= function (e) {
-    resultado.textContent = resultado.textContent + "7"
+    comprobarDigitos()
+    if (maxDigitos==false) {
+      display.textContent = resultado + "7"
+      resultado= display.textContent
+    }
     num7.style="padding:1%"
     setInterval(resetNum, 400)
   }
   num8.onclick= function (e) {
-    resultado.textContent = resultado.textContent + "8"
+    comprobarDigitos()
+    if (maxDigitos==false) {
+      display.textContent = resultado + "8"
+      resultado= display.textContent
+    }
     num8.style="padding:1%"
     setInterval(resetNum, 400)
   }
   num9.onclick= function (e) {
-    resultado.textContent = resultado.textContent + "9"
+    comprobarDigitos()
+    if (maxDigitos==false) {
+      display.textContent = resultado + "9"
+      resultado= display.textContent
+    }
     num9.style="padding:1%"
     setInterval(resetNum, 400)
   }
   ////////////////////////////////////////////////////
   mas.onclick= function (e) {
-    operando1= resultado.textContent;
+    operando1= resultado;
     operacion= "+";
     limpiar();
     mas.style="padding:1%";
     setInterval(resetNum, 400);
   }
   menos.onclick= function (e) {
-    operando1= resultado.textContent;
+    operando1= resultado;
     operacion= "-";
     limpiar();
     menos.style="padding:1%";
     setInterval(resetNum, 400);
   }
   dividido.onclick= function (e) {
-    operando1= resultado.textContent;
+    operando1= resultado;
     operacion= "/";
     limpiar();
     dividido.style="padding:1%";
     setInterval(resetNum, 400);
   }
   por.onclick= function (e) {
-    operando1= resultado.textContent;
+    operando1= resultado;
     operacion= "*";
     limpiar();
     por.style="padding:1%";
@@ -113,18 +157,23 @@ function calculadora() {
     setInterval(resetNum, 400);
   }
   igual.onclick= function (e) {
-    operando2= resultado.textContent;
+    operando2= resultado;
     resolver();
     igual.style="padding:1%";
     setInterval(resetNum, 400);
   }
   sign.onclick= function (e) {
-    resultado.textContent = "-" + resultado.textContent
+    display.textContent = "-" + resultado.substr(0,8)
+    //resultado= display.textContent
     sign.style="padding:1%";
     setInterval(resetNum, 400);
   }
   punto.onclick= function (e) {
-    resultado.textContent = resultado.textContent + "."
+    comprobarDigitos()
+    if (maxDigitos==false) {
+      display.textContent = resultado + "."
+      resultado= display.textContent
+    }
     punto.style="padding:1%";
     setInterval(resetNum, 400);
   }
@@ -151,12 +200,23 @@ function calculadora() {
     punto.style="padding:0"
   }
 
+  function comprobarDigitos() {
+    if (resultado.length>=8) {
+      display.textContent = resultado.substr(0,8)
+      maxDigitos= true
+    }else {
+      maxDigitos= false
+    }
+  }
+
   function limpiar() {
-    resultado.textContent= "";
+    display.textContent="";
+    resultado= "";
   }
 
   function reset() {
-    resultado.textContent= "0";
+    resultado= "";
+    display.textContent="0";
     operando1= 0;
     operando2= 0;
     operacion= "";
@@ -179,50 +239,9 @@ function calculadora() {
         break;
     }
     reset()
-    resultado.textContent= res;
+    resultado= res;
+    display.textContent= resultado;
   }
 }
 
 calculadora()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-//Asigna valores a los elementos
-document.getElementById("display").value= "";
-document.getElementById("0").value= 0;
-document.getElementById("1").value= 1;
-document.getElementById("2").value= 2;
-document.getElementById("3").value= 3;
-document.getElementById("4").value= 4;
-document.getElementById("5").value= 5;
-document.getElementById("6").value= 6;
-document.getElementById("7").value= 7;
-document.getElementById("8").value= 8;
-document.getElementById("9").value= 9;
-
-
-// Funcion que se ejecuta en el elemento
-function mostrarAlerta(mensaje) {
-  display.innerHTML= num7.value;
-}
-
-// Asignacion del evento al boton
-num7.addEventListener("click", mostrarAlerta)
-num1.addEventListener("click", mostrarAlerta)
-num2.addEventListener("click", mostrarAlerta)
-num3.addEventListener("click", mostrarAlerta)
-num4.addEventListener("click", mostrarAlerta)
-num5.addEventListener("click", mostrarAlerta)
-*/
