@@ -24,6 +24,7 @@ function calculadora() {
   var operacion="";
   var resultado = "";
   var maxDigitos= "";
+  var contador = 0;
 
   //Eventos
   num0.onclick= function (e) {
@@ -157,10 +158,11 @@ function calculadora() {
     setInterval(resetNum, 400);
   }
   igual.onclick= function (e) {
-    if (operando2=="") {
-      operando2= resultado;
-      resolver();
+    contador= contador + 1;
+    if (contador>=2) {
+      resolver()
     } else {
+      operando2= resultado;
       resolver();
     }
     igual.style="padding:1%";
@@ -250,10 +252,6 @@ function calculadora() {
   function limpiar() {
     display.textContent="";
     resultado= "";
-    //operando1= 0;
-    //operando2= 0;
-    //operacion= "";
-
   }
 
   function reset() {
@@ -280,7 +278,11 @@ function calculadora() {
     reset()
     resultado= res;
     operando1= res;
-    display.textContent= resultado;
+    if (resultado.length>=8) {
+      display.textContent= resultado.substr(0,8)
+    } else {
+      display.textContent= resultado;
+    }
   }
 }
 
