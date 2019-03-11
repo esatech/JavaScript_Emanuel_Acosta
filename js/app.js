@@ -19,9 +19,9 @@ function calculadora() {
   var num7= document.getElementById("7");
   var num8= document.getElementById("8");
   var num9= document.getElementById("9");
-  var operando1;
-  var operando2;
-  var operacion;
+  var operando1="";
+  var operando2="";
+  var operacion="";
   var resultado = "";
   var maxDigitos= "";
 
@@ -157,22 +157,31 @@ function calculadora() {
     setInterval(resetNum, 400);
   }
   igual.onclick= function (e) {
-    operando2= resultado;
-    resolver();
+    if (operando2=="") {
+      operando2= resultado;
+      resolver();
+    } else {
+      resolver();
+    }
     igual.style="padding:1%";
     setInterval(resetNum, 400);
   }
   sign.onclick= function (e) {
-    display.textContent = "-" + resultado.substr(0,8)
-    //resultado= display.textContent
+    if (resultado=="0" || resultado=="") {
+      display.textContent = "0"
+      resultado= ""
+    } else {
+      comprobarSigno()
+    }
     sign.style="padding:1%";
     setInterval(resetNum, 400);
   }
   punto.onclick= function (e) {
-    comprobarDigitos()
-    if (maxDigitos==false) {
-      display.textContent = resultado + "."
-      resultado= display.textContent
+    if (resultado=="0" || resultado=="") {
+      display.textContent = "0"
+      resultado= ""
+    } else {
+      comprobarPunto()
     }
     punto.style="padding:1%";
     setInterval(resetNum, 400);
@@ -201,25 +210,55 @@ function calculadora() {
   }
 
   function comprobarDigitos() {
-    if (resultado.length>=8) {
-      display.textContent = resultado.substr(0,8)
-      maxDigitos= true
-    }else {
-      maxDigitos= false
+    if (resultado.indexOf("-")!=-1) {
+      if (resultado.length>=9) {
+        display.textContent = resultado.substr(0,9)
+        maxDigitos= true
+      }else {
+        maxDigitos= false
+      }
+    } else {
+      if (resultado.length>=8) {
+        display.textContent = resultado.substr(0,8)
+        maxDigitos= true
+      }else {
+        maxDigitos= false
+      }
+    }
+  }
+
+  function comprobarSigno() {
+    if (resultado.indexOf("-")!=-1) {
+      display.textContent = resultado.replace("-","")
+      resultado= display.textContent
+    } else {
+      display.textContent = "-" + resultado.substr(0,8)
+      resultado= display.textContent
+    }
+  }
+
+  function comprobarPunto() {
+    if (resultado.indexOf(".")!=-1) {
+      display.textContent = resultado
+      resultado= display.textContent
+    } else {
+      display.textContent = resultado.substr(0,7) + "."
+      resultado= display.textContent
     }
   }
 
   function limpiar() {
     display.textContent="";
     resultado= "";
+    //operando1= 0;
+    //operando2= 0;
+    //operacion= "";
+
   }
 
   function reset() {
     resultado= "";
     display.textContent="0";
-    operando1= 0;
-    operando2= 0;
-    operacion= "";
   }
 
   function resolver() {
@@ -240,6 +279,7 @@ function calculadora() {
     }
     reset()
     resultado= res;
+    operando1= res;
     display.textContent= resultado;
   }
 }
