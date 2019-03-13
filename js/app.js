@@ -163,19 +163,19 @@ function calculadora() {
     setInterval(resetNum, 400);
   }
   igual.onclick= function (e) {
-    contador= contador + 1;
-    if (contador==1) {
-      operando2= resultado;
-      resolver()
-    } else {
+    //contador= contador + 1;
+    //if (contador==1) {
+    //  operando2= resultado;
+    //  resolver()
+    //} else {
       if (compruebaIgual==true) {
         operando2= resultado;
         resolver()
       } else {
         resolver()
       }
-      resolver();
-    }
+      //resolver();
+    //}
     igual.style="padding:1%";
     setInterval(resetNum, 400);
   }
