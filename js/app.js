@@ -25,6 +25,7 @@ function calculadora() {
   var resultado = "";
   var maxDigitos= "";
   var contador = 0;
+  var compruebaIgual= false;
 
   //Eventos
   num0.onclick= function (e) {
@@ -126,6 +127,7 @@ function calculadora() {
   mas.onclick= function (e) {
     operando1= resultado;
     operacion= "+";
+    compruebaIgual= true;
     limpiar();
     mas.style="padding:1%";
     setInterval(resetNum, 400);
@@ -133,6 +135,7 @@ function calculadora() {
   menos.onclick= function (e) {
     operando1= resultado;
     operacion= "-";
+    compruebaIgual= true;
     limpiar();
     menos.style="padding:1%";
     setInterval(resetNum, 400);
@@ -140,6 +143,7 @@ function calculadora() {
   dividido.onclick= function (e) {
     operando1= resultado;
     operacion= "/";
+    compruebaIgual= true;
     limpiar();
     dividido.style="padding:1%";
     setInterval(resetNum, 400);
@@ -147,6 +151,7 @@ function calculadora() {
   por.onclick= function (e) {
     operando1= resultado;
     operacion= "*";
+    compruebaIgual= true;
     limpiar();
     por.style="padding:1%";
     setInterval(resetNum, 400);
@@ -159,10 +164,16 @@ function calculadora() {
   }
   igual.onclick= function (e) {
     contador= contador + 1;
-    if (contador>=2) {
+    if (contador==1) {
+      operando2= resultado;
       resolver()
     } else {
-      operando2= resultado;
+      if (compruebaIgual==true) {
+        operando2= resultado;
+        resolver()
+      } else {
+        resolver()
+      }
       resolver();
     }
     igual.style="padding:1%";
@@ -173,7 +184,8 @@ function calculadora() {
       display.textContent = "0"
       resultado= ""
     } else {
-      comprobarSigno()
+      display.textContent = resultado * -1
+      resultado= display.textContent
     }
     sign.style="padding:1%";
     setInterval(resetNum, 400);
@@ -229,23 +241,18 @@ function calculadora() {
     }
   }
 
-  function comprobarSigno() {
-    if (resultado.indexOf("-")!=-1) {
-      display.textContent = resultado.replace("-","")
-      resultado= display.textContent
-    } else {
-      display.textContent = "-" + resultado.substr(0,8)
-      resultado= display.textContent
-    }
-  }
-
   function comprobarPunto() {
     if (resultado.indexOf(".")!=-1) {
       display.textContent = resultado
       resultado= display.textContent
     } else {
-      display.textContent = resultado.substr(0,7) + "."
-      resultado= display.textContent
+      if (resultado.length>=8) {
+        display.textContent = resultado
+        resultado= display.textContent
+      } else {
+        display.textContent = resultado.substr(0,7) + "."
+        resultado= display.textContent
+      }
     }
   }
 
@@ -276,13 +283,10 @@ function calculadora() {
         break;
     }
     reset()
+    compruebaIgual= false;
     resultado= res;
     operando1= res;
-    if (resultado.length>=8) {
-      display.textContent= resultado.substr(0,8)
-    } else {
-      display.textContent= resultado;
-    }
+    display.textContent= res;
   }
 }
 
