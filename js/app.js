@@ -19,12 +19,11 @@ function calculadora() {
   var num7= document.getElementById("7");
   var num8= document.getElementById("8");
   var num9= document.getElementById("9");
-  var operando1="";
-  var operando2="";
-  var operacion="";
+  var operando1= "";
+  var operando2= "";
+  var operacion= "";
   var resultado = "";
   var maxDigitos= "";
-  var contador = 0;
   var compruebaIgual= false;
 
   //Eventos
@@ -163,19 +162,12 @@ function calculadora() {
     setInterval(resetNum, 400);
   }
   igual.onclick= function (e) {
-    //contador= contador + 1;
-    //if (contador==1) {
-    //  operando2= resultado;
-    //  resolver()
-    //} else {
-      if (compruebaIgual==true) {
-        operando2= resultado;
-        resolver()
-      } else {
-        resolver()
-      }
-      //resolver();
-    //}
+    if (compruebaIgual==true) {
+      operando2= resultado;
+      resolver()
+    } else {
+      resolver()
+    }
     igual.style="padding:1%";
     setInterval(resetNum, 400);
   }
@@ -192,8 +184,8 @@ function calculadora() {
   }
   punto.onclick= function (e) {
     if (resultado=="0" || resultado=="") {
-      display.textContent = "0"
-      resultado= ""
+      display.textContent = "0"+"."
+      resultado= display.textContent
     } else {
       comprobarPunto()
     }
@@ -286,7 +278,11 @@ function calculadora() {
     compruebaIgual= false;
     resultado= res;
     operando1= res;
-    display.textContent= res;
+    if (resultado.toString().length>=8) {
+      display.textContent= res.toString().substr(0,8);
+    } else {
+      display.textContent= res;
+    }
   }
 }
 
