@@ -28,20 +28,14 @@ function calculadora() {
 
   //Eventos
   num0.onclick= function (e) {
-    if (resultado=="0") {
-      display.textContent = "0"
-      resultado= ""
-    } else {
-      comprobarDigitos()
-      if (maxDigitos==false) {
-        display.textContent = resultado + "0"
-        resultado= display.textContent
-      }
+    comprobarDigitos()
+    if (maxDigitos==false) {
+      display.textContent = resultado + "0"
     }
     num0.style="padding:1%"
     setInterval(resetNum, 400)
   }
-  num1.onclick= function (e) {
+  num1.onclick= function uno(e) {
     comprobarDigitos()
     if (maxDigitos==false) {
       display.textContent = resultado + "1"
@@ -216,20 +210,11 @@ function calculadora() {
   }
 
   function comprobarDigitos() {
-    if (resultado.indexOf("-")!=-1) {
-      if (resultado.length>=9) {
-        display.textContent = resultado.substr(0,9)
-        maxDigitos= true
-      }else {
-        maxDigitos= false
-      }
-    } else {
-      if (resultado.length>=8) {
-        display.textContent = resultado.substr(0,8)
-        maxDigitos= true
-      }else {
-        maxDigitos= false
-      }
+    if (resultado.length>=8) {
+      display.textContent = resultado.substr(0,8)
+      maxDigitos= true
+    }else {
+      maxDigitos= false
     }
   }
 
@@ -258,6 +243,8 @@ function calculadora() {
     display.textContent="0";
   }
 
+
+
   function resolver() {
     var res= 0;
     switch (operacion) {
@@ -285,5 +272,17 @@ function calculadora() {
     }
   }
 }
+
+function mostrar_tecla(event) {
+  var tecla= event.which || event.keyCode;
+  if (tecla==49) {
+    uno()
+  } else {
+
+  }
+}
+
+document.onkeypress=mostrar_tecla
+
 
 calculadora()
