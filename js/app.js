@@ -317,10 +317,10 @@ switch (tecla) {
   case 45:
     menos.onclick()
     break;
-  case 45:
+  case 42:
     por.onclick()
     break;
-  case 42:
+  case 45:
     dividido.onclick()
     break;
   case 98:
